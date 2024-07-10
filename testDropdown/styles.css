@@ -1,0 +1,21 @@
+*{
+    margin: 2px;
+}
+body{
+    width: 200px;
+    margin: 8px;
+}
+#notesContainer{
+    overflow-y: scroll;
+    overflow-x: hidden;
+    max-height: 300px;
+}
+.active{
+    visibility: visible;
+}
+.inactive{
+    visibility: hidden;
+}
+.noteClass{
+    border: 2px, solid, black;
+}
