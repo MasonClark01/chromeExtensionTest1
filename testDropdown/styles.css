@@ -17,5 +17,18 @@ body{
     visibility: hidden;
 }
 .noteClass{
-    border: 2px, solid, black;
+    border: 1px, solid, black;
+    background-color: #ff6a00aa;
+}
+#addNote{
+    border: 1px, solid, black;
+    background-color: #ff6a00aa;
+}
+.buttonClass{
+    border: 1px, solid, black;
+    background-color: #ff6a00aa;
+}
+.noteTopClass{
+    display: flex;
+    justify-content: space-between;
 }
