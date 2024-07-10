@@ -5,6 +5,7 @@ let nameIdentifier = ""
 let notes = {
 
 }
+testCounter = 0
 
 //looks for the dom elements that store the location name & user name on manager dashboard.
 const fetchData = () => {
@@ -27,12 +28,14 @@ chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
 //Creates note object from user input after clicking Post button and reactivates add new note button
 const postNote = (title, body) => {
     if(title.value !== "" && body.value !== ""){
-        const noteTitle = title.value
-        notes[noteTitle] = body.value
+        notes[testCounter] = {title: title.value, body: body.value}
+        testCounter += 1
+
         notesContainer.classList.remove("adding")
         document.getElementById("noteAddingDiv").remove()
         addButton.classList.remove("inactive")
         addButton.classList.add("active")
+        console.log(notes)
         renderNotes()
     }
     else{
@@ -47,7 +50,8 @@ const postNote = (title, body) => {
 
 //New Feature: Delete Note and Cancel Note (have to change notescontainer class "adding" and addbutton classes "inactive" & "active")
 const deleteNote = (arg) => {
-    
+    delete(notes[arg])
+    renderNotes()
 }
 
 const cancelNote = (arg) => {
@@ -107,10 +111,10 @@ const renderNotes = () => {
         const noteBody = document.createElement("p")
         const author = document.createElement("p")
         const deleteButton = document.createElement("button")
-        deleteButton.addEventListener("click", e=>deleteNote(e))
+        deleteButton.addEventListener("click", e=>deleteNote(note))
 
-        noteTitle.textContent = note
-        noteBody.textContent = notes[note]
+        noteTitle.textContent = notes[note].title
+        noteBody.textContent = notes[note].body
         deleteButton.innerText = "X"
         if(nameIdentifier !== ""){
             author.innerText = nameIdentifier
