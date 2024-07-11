@@ -32,3 +32,7 @@ body{
     display: flex;
     justify-content: space-between;
 }
+.createNoteButtonDivClass{
+    display: flex;
+    justify-content: space-between;
+}

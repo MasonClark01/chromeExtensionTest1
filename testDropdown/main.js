@@ -5,6 +5,8 @@ let nameIdentifier = ""
 let notes = {
 
 }
+const noteTypes = ["General", "Troubleshooting", "Hardware", "Software", "Location Details"]
+//lines to change to replace testcounter: 32, 33, 115
 testCounter = 0
 
 //looks for the dom elements that store the location name & user name on manager dashboard.
@@ -26,9 +28,9 @@ chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
 });
 
 //Creates note object from user input after clicking Post button and reactivates add new note button
-const postNote = (title, body) => {
-    if(title.value !== "" && body.value !== ""){
-        notes[testCounter] = {title: title.value, body: body.value}
+const postNote = (type, body) => {
+    if(type.value !== "" && body.value !== ""){
+        notes[testCounter] = {type: type.value, body: body.value}
         testCounter += 1
 
         notesContainer.classList.remove("adding")
@@ -73,26 +75,33 @@ const createNote = () => {
         const newNoteDiv = document.createElement("div")
         newNoteDiv.id = "noteAddingDiv"
 
-        const head = document.createElement("input")
+        const type = document.createElement("select")
+        for(let i in noteTypes){
+            const newOption = document.createElement("option")
+            newOption.value = noteTypes[i]
+            newOption.innerText = `${noteTypes[i]}`
+            type.appendChild(newOption)
+        }
+
         const body = document.createElement("input")
         const post = document.createElement("button")
         const cancel = document.createElement("button")
         post.classList.add("buttonClass")
         cancel.classList.add("buttonClass")
-
-        head.placeholder = "Title (75 Character Limit)"
-        head.maxLength = 75
         body.placeholder = "Body (300 Character Limit)"
         body.maxLength = 300
         post.innerText = "Post"
         cancel.innerText = "Cancel"
         cancel.addEventListener("click", (e)=>cancelNote(newNoteDiv))
-        post.addEventListener("click", (e)=>postNote(head, body))
+        post.addEventListener("click", (e)=>postNote(type.selectedOptions[0], body))
 
-        newNoteDiv.appendChild(cancel)
-        newNoteDiv.appendChild(head)
+        const createNoteButtonDiv = document.createElement("div")
+        createNoteButtonDiv.classList.add("createNoteButtonDivClass")
+        createNoteButtonDiv.appendChild(post)
+        createNoteButtonDiv.appendChild(cancel)
+        newNoteDiv.appendChild(type)
         newNoteDiv.appendChild(body)
-        newNoteDiv.appendChild(post)
+        newNoteDiv.appendChild(createNoteButtonDiv)
         notesContainer.appendChild(newNoteDiv)
     }
 }
@@ -107,13 +116,13 @@ const renderNotes = () => {
         noteDiv.classList.add("noteClass")
         topDiv.classList.add("noteTopClass")
 
-        const noteTitle = document.createElement("h4")
+        const noteType = document.createElement("h4")
         const noteBody = document.createElement("p")
         const author = document.createElement("p")
         const deleteButton = document.createElement("button")
         deleteButton.addEventListener("click", e=>deleteNote(note))
 
-        noteTitle.textContent = notes[note].title
+        noteType.textContent = notes[note].type
         noteBody.textContent = notes[note].body
         deleteButton.innerText = "X"
         if(nameIdentifier !== ""){
@@ -126,7 +135,7 @@ const renderNotes = () => {
         topDiv.appendChild(author)
         topDiv.appendChild(deleteButton)
         noteDiv.appendChild(topDiv)
-        noteDiv.appendChild(noteTitle)
+        noteDiv.appendChild(noteType)
         noteDiv.appendChild(noteBody)
 
         notesContainer.appendChild(noteDiv)
