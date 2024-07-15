@@ -36,3 +36,15 @@ body{
     display: flex;
     justify-content: space-between;
 }
+.globalNoteDiv{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-right: 10%;
+}
+.globalNoteDiv>*{
+    font-size: 14px;
+}
+.userInput{
+    width: 90%;
+}
