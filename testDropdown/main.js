@@ -7,7 +7,7 @@ let notes = {
     0: {
         type: "Software",
         body: "Testing delete button only showing up for user who created note and displaying global notes on all pages",
-        user: "John Smith",
+        user: "Rott Kitchell",
         time: "07/12/2024",
         store: "Global"
     },
