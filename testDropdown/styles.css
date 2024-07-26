@@ -32,6 +32,7 @@ body{
     display: flex;
     justify-content: space-between;
 }
+
 .createNoteButtonDivClass{
     display: flex;
     justify-content: space-between;
@@ -39,7 +40,7 @@ body{
 .globalNoteDiv{
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: flex-end;
     margin-right: 10%;
 }
 .globalNoteDiv>*{

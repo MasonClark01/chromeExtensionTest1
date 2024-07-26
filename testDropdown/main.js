@@ -1,3 +1,5 @@
+//Todo: Remove timetest in chrome.scripting, replace testcounter, add confirmation for deleting notes, add google signin
+
 const addButton = document.getElementById("addNote")
 const notesContainer = document.getElementById("notesContainer")
 let storeIdentifier = document.getElementById("storeIdentifier")
@@ -99,10 +101,7 @@ const cancelNote = (arg) => {
     renderNotes()
 }
 //New Feature: If the user is a deployment engineer allow posting to "global notes", otherwise post based on location. Currently handled inside createNote
-const postGlobalNote = (arg) => {
-    arg.store = "Global"
-    return
-}
+
 //Creates form for creating a new note and removes add new note button
 const createNote = () => {
     if(!notesContainer.classList.contains("adding")){
@@ -112,10 +111,10 @@ const createNote = () => {
         notesContainer.classList.add("adding")
         const newNoteDiv = document.createElement("div")
         const globalNoteDiv = document.createElement("div")
+        globalNoteDiv.classList.add("globalNoteDiv")
         newNoteDiv.id = "noteAddingDiv"
 
         if(deploymentEngineers.includes(nameIdentifier)){
-            globalNoteDiv.classList.add("globalNoteDiv")
             const globalNoteToggle = document.createElement("input")
             globalNoteToggle.classList.add("globalNoteToggle")
             globalNoteToggle.type = "checkbox"
